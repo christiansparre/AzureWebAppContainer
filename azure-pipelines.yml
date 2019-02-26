@@ -14,7 +14,7 @@ steps:
   inputs:
     command: build
     dockerFile: AzureWebAppContainer/Dockerfile
-    imageName: azwebappcontainer:$(Build.BuildNumber)
+    imageName: sparreio.azurecr.io/azwebappcontainer:$(Build.BuildNumber)
     useDefaultContext: false
     buildContext: .
 
@@ -23,5 +23,5 @@ steps:
   inputs:
     command: push
     azureSubscriptionEndpoint: ARMPre2015
-    azureContainerRegistry: sparreio
-    imageName: azwebappcontainer:$(Build.BuildNumber)
+    azureContainerRegistry: sparreio.azurecr.io
+    imageName: sparreio.azurecr.io/azwebappcontainer:$(Build.BuildNumber)
