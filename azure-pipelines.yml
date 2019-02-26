@@ -13,5 +13,5 @@ steps:
   displayName: Build image
   inputs:
     command: build
-    dockerFile: AzureWebAppContainer/Docekrfile
+    dockerFile: AzureWebAppContainer/Dockerfile
     imageName: azwebappcontainer:$(Build.BuildNumber)
