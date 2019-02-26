@@ -9,6 +9,13 @@ pool:
 name: $(Date:yyyyMMdd)$(Rev:.rrr)-$(Build.SourceBranchName)
 
 steps:
+
+- task: Bash@3
+  displayName: Create version.txt file
+  inputs:
+    targetType: inline
+    script: echo "$(Build.BuildNumber)" > version.txt
+
 - task: Docker@1
   displayName: Build image
   inputs:
