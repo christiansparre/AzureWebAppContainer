@@ -13,7 +13,7 @@ RUN dotnet build "AzureWebAppContainer.csproj" -c Release -o /app
 
 FROM build AS publish
 RUN dotnet publish "AzureWebAppContainer.csproj" -c Release -o /app
-COPY README.md version.* /app
+COPY README.md version.* /app/
 
 FROM base AS final
 WORKDIR /app
