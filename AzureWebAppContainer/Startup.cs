@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace AzureWebAppContainer
 {
@@ -12,7 +13,7 @@ namespace AzureWebAppContainer
         {
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -23,7 +24,8 @@ namespace AzureWebAppContainer
             {
                 var version = "00010101.001-local";
 
-                var path = Path.Combine(typeof(Startup).Assembly.Location, "version.txt");
+                var path = Path.Combine(env.ContentRootPath, "version.txt");
+                logger.LogInformation("Looking for version.txt in {path}", path);
                 if (File.Exists(path))
                 {
                     version = File.ReadAllText(path).Trim();
