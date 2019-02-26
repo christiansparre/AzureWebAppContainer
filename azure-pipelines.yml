@@ -1,0 +1,48 @@
+# ASP.NET Core
+# Build and test ASP.NET Core web applications targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/vsts/pipelines/languages/dotnet-core
+
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+
+steps:
+- task: Docker@1
+  displayName: Build image
+  inputs:
+    command: build
+    dockerFile: AzureWebAppContainer/Docekrfile
+    imageName: azwebappcontainer:$(Build.BuildNumber)
+
+
+# steps:
+# - script: dotnet build --configuration $(buildConfiguration)
+#   displayName: 'Run build'
+# - script: |
+#     docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=yourStrong(!)Password' -p 1444:1433 -d microsoft/mssql-server-linux:2017-latest
+#     dotnet test ./tests/Occurrence.Tests --configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+#   displayName: 'Run tests and collect coverage'
+
+# - script:
+#     dotnet reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:reports" "-reporttypes:HTMLInline"
+#   workingDirectory: $(System.DefaultWorkingDirectory)/tests/Occurrence.Tests
+#   displayName: Generate coverage report
+
+# - script: |
+#     dotnet pack ./src/Occurrence --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/pre /p:PackageVersion=$(major).$(minor).$(patch)-$(pre)
+#     dotnet pack ./src/Occurrence --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/rel /p:PackageVersion=$(major).$(minor).$(patch)
+#   displayName: 'Create packages'
+
+# - task: PublishTestResults@2
+#   inputs:
+#     testRunner: VSTest
+#     testResultsFiles: '**/*.trx'
+
+# - task: PublishCodeCoverageResults@1
+#   inputs:
+#     codeCoverageTool: 'Cobertura'
+#     summaryFileLocation: $(System.DefaultWorkingDirectory)/tests/Occurrence.Tests/coverage.cobertura.xml
+#     reportDirectory: $(System.DefaultWorkingDirectory)/tests/Occurrence.Tests/reports
+
+# - task: PublishBuildArtifacts@1
