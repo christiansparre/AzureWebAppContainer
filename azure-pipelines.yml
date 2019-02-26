@@ -17,3 +17,11 @@ steps:
     imageName: azwebappcontainer:$(Build.BuildNumber)
     useDefaultContext: false
     buildContext: .
+
+- task: Docker@1
+  displayName: Push image
+  inputs:
+    command: push
+    azureSubscriptionEndpoint: ARMPre2015
+    azureContainerRegistry: sparreio
+    imageName: azwebappcontainer:$(Build.BuildNumber)
