@@ -15,3 +15,5 @@ steps:
     command: build
     dockerFile: AzureWebAppContainer/Dockerfile
     imageName: azwebappcontainer:$(Build.BuildNumber)
+    useDefaultContext: false
+    buildContext: .
