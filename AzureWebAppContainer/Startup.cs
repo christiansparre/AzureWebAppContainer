@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections;
+using System.IO;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +34,19 @@ namespace AzureWebAppContainer
                     version = File.ReadAllText(path).Trim();
                 }
 
-                await context.Response.WriteAsync($"Hello World! I'm version '{version}'");
+                var builder = new StringBuilder();
+
+                builder.AppendLine($"Hello World! I'm version '{version}'");
+                builder.AppendLine();
+                builder.AppendLine("Environment variables");
+
+                foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
+                {
+                    builder.AppendLine($"{kv.Key} = '{kv.Value}'");
+                }
+
+                context.Response.ContentType = "text/plain";
+                await context.Response.WriteAsync(builder.ToString());
             });
         }
     }
