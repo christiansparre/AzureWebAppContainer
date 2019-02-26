@@ -37,13 +37,13 @@ namespace AzureWebAppContainer
                 var builder = new StringBuilder();
 
                 builder.AppendLine($"Hello World! I'm version '{version}'");
-                builder.AppendLine();
-                builder.AppendLine("Environment variables");
+                //builder.AppendLine();
+                //builder.AppendLine("Environment variables");
 
-                foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
-                {
-                    builder.AppendLine($"{kv.Key} = '{kv.Value}'");
-                }
+                //foreach (DictionaryEntry kv in Environment.GetEnvironmentVariables())
+                //{
+                //    builder.AppendLine($"{kv.Key} = '{kv.Value}'");
+                //}
 
                 context.Response.ContentType = "text/plain";
                 await context.Response.WriteAsync(builder.ToString());
